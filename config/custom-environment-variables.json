@@ -1,0 +1,4 @@
+{
+    "jwtPrivateKey": "easytemp_jwtPrivateKey",
+    "db": "easytemp_db"
+}

@@ -1,0 +1,33 @@
+{
+  "name": "npm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SirMacke/EasyTemp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SirMacke/EasyTemp/issues"
+  },
+  "homepage": "https://github.com/SirMacke/EasyTemp#readme",
+  "dependencies": {
+    "compression": "^1.7.4",
+    "config": "^3.3.2",
+    "cookie-parser": "^1.4.5",
+    "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
+    "helmet": "^4.1.1",
+    "help": "^3.0.2",
+    "joi": "^17.2.1",
+    "joi-objectid": "^3.0.1",
+    "mongoose": "^5.10.7",
+    "winston": "^2.4.5",
+    "winston-mongodb": "^5.0.3"
+  }
+}
