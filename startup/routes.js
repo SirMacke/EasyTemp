@@ -10,6 +10,7 @@ module.exports = function(app) {
     app.use(bodyParser.urlencoded({
         extended: true
     }));
+    app.use(cookieParser());
     app.use('/', home);
     app.use('/room', room);
     app.use(error);
