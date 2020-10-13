@@ -18,7 +18,6 @@ router.post('/', async(req, res) => {
 
     console.log("Req.body info");
     console.log(req.body);
-    console.log(req.body[0]);
     //console.log(req.body[0].arduinoIdentifier);
     console.log(req.body.arduinoIdentifier);
 
