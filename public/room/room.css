@@ -1,14 +1,46 @@
-.graf {
-    margin: auto;
-    width: 50%;
+body {
+    background-color: #333;
 }
+
+h1 {
+    color: white;
+    text-align: center;
+}
+
+#temp {
+    text-align: center;
+    text-decoration-style: solid;
+    color: red;
+}
+
+#humidity {
+    text-align: center;
+    color: green;
+}
+
+#graf {
+    border: 5px solid #222;
+}
+
+.graf {
+    box-sizing: border-box;
+    margin: auto;
+    width: 512px;
+}
+
 .button {
-    background-color: red; 
-    color:  white;
+    background-color: red;
+    color: white;
     padding: 10px 25px;
     text-align: center;
     text-decoration: red;
     display: inline-block;
     font-size: 16px;
-    width: 100%;  border: none;
+    width: 100%;
+    border: none;
+}
+
+#table {
+    margin: auto;
+    width: 20%;
 }

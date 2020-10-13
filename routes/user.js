@@ -12,7 +12,7 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/login', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/login', 'login.html'));    
+    res.sendFile(path.join(__dirname, '../public/login', 'login.html'));
 });
 
 router.post('/login', async (req, res) => {
@@ -35,11 +35,11 @@ router.post('/login', async (req, res) => {
     res.redirect('/user/home');
 });
 
-router.get('/sign-up', (req, res) => {
+router.get('/signup', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/signup', 'signup.html')); 
 });
 
-router.post('/sign-up', validate(validateUser), async (req, res) => {
+router.post('/signup', validate(validateUser), async (req, res) => {
     let user = await User.findOne({ email: req.body.email });
     if (user) return res.status(400).send('User already registered.');
   

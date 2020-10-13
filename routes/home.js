@@ -5,6 +5,13 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', (req, res) => {
+    let test = {
+        name: "Test",
+        package: 1
+    }
+    res.cookie('name', test.name);
+    res.cookie('package', test.package);
+
     res.sendFile(path.join(__dirname, '../public/home', 'home.html'));
 });
 

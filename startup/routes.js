@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const path = require('path')
 const home = require('../routes/home');
 const room = require('../routes/room');
 const user = require('../routes/user');
@@ -11,8 +12,11 @@ module.exports = function(app) {
     app.use(bodyParser.urlencoded({
         extended: true
     }));
-    app.use(express.static('public'));
-    app.use(express.static('private'));
+    app.use(cookieParser());
+    app.use(express.static(path.join(__dirname, '../') + 'public/home'));
+    app.use(express.static(path.join(__dirname, '../') + 'public/room'));
+    app.use(express.static(path.join(__dirname, '../') + 'public/login'));
+    app.use(express.static(path.join(__dirname, '../') + 'public/signup'));
     app.use(cookieParser());
     app.use('/', home);
     app.use('/room', room);
