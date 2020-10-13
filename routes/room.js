@@ -16,6 +16,9 @@ router.post('/', async(req, res) => {
         humidity: req.body.humidity
     });
 
+    console.log("Req.body info");
+    console.log(req.body);
+
     res.send(req.body.arduinoIdentifier);
 
     /*try {
