@@ -9,15 +9,15 @@ router.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/room', 'room.html'));
 });
 
-router.post('/', async (req, res) => {
+router.post('/', async(req, res) => {
     let dataPack = new DataPack({
         arduinoIdentifier: req.body.arduinoIdentifier,
         temperature: req.body.temperature,
         humidity: req.body.humidity
     });
 
-    res.send(req.body);
-    
+    res.send(req.body.arduinoIdentifier);
+
     /*try {
         await dataPack.save();
         res.json({
