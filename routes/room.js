@@ -17,7 +17,7 @@ router.post('/', async(req, res) => {
     });
 
     console.log(req.body);
-    console.log(req.body.sender);
+    console.log(req.body.arduinoId);
     res.send(req.body);
 
     try {
