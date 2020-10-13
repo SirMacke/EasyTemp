@@ -16,10 +16,6 @@ router.post('/', async(req, res) => {
         humidity: req.body.humidity
     });
 
-    console.log(req.body);
-    console.log(req.body.arduinoId);
-    res.send(req.body);
-
     try {
         await dataPack.save();
         res.json({
