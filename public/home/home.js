@@ -1,22 +1,16 @@
 "use strict";
 let cookies = document.cookie;
 
-let bias = 0.008;
+let tempButton = document.getElementById('temp-button');
+let humidButton = document.getElementById('humid-button');
 let roomsArray = [
-    { room: "hallway", temperature: 20 },
-    { room: "room1", temperature: 18 },
-    { room: "room2", temperature: 21 },
-    { room: "room3", temperature: 20 },
-    { room: "room4", temperature: 19 },
-    { room: "room5", temperature: 18 },
-    { room: "room6", temperature: 21 },
+    { room: "room0", temperature: 22, humidity: 35 },
+    { room: "room1", temperature: 18, humidity: 42 },
+    { room: "room2", temperature: 21, humidity: 25 },
+    { room: "room3", temperature: 20, humidity: 30 },
+    { room: "room4", temperature: 19, humidity: 40 },
 ];
-
-function getRndInteger(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-let calculateColor = (currentTemp, maxTemp, minTemp) => {
-    let b = bias; // Bias är 0.15
+let calculateTemperatureColor = (currentTemp, maxTemp, minTemp, b) => {
     let exponentionateRgb = (x, b) => {
         let f = (b ** x - 1) / (b - 1);
         let g = -((b ** x - 1) / (b - 1)) + 1;
@@ -27,16 +21,34 @@ let calculateColor = (currentTemp, maxTemp, minTemp) => {
     let blueValue = exponentionateRgb(float, b).blue * 255;
     return `rgb(${redValue}, 0, ${blueValue})`;
 };
-
-function colorRooms() {
-    for (let i = 0; i < roomsArray.length; i++) {
-        let room = document.getElementById(roomsArray[i].room);
-        room.style.backgroundColor = calculateColor(roomsArray[i].temperature, 30, 15);
-    }
-}
-window.onload = () => {
-    colorRooms();
+let calculateHumidityColor = (currentHumid, maxHumid, minHumid, b) => {
+    let exponentCurve = (x, b) => (b ** x - 1) / (b - 1);
+    let float = (currentHumid - minHumid) / (maxHumid - minHumid);
+    return `rgb(50, 50, ${exponentCurve(float, b) * 255})`;
 };
 
+function colorRoomTemps() {
+    for (let i in roomsArray) {
+        let room = document.getElementById(roomsArray[i].room);
+        room.style.backgroundColor = calculateTemperatureColor(roomsArray[i].temperature, 30, 15, 0.008);
+    }
+}
+
+function colorRoomHumid() {
+    for (let i in roomsArray) {
+        let room = document.getElementById(roomsArray[i].room);
+        console.log(calculateHumidityColor(roomsArray[i].humidity, 100, 1, 10));
+        room.style.backgroundColor = calculateHumidityColor(roomsArray[i].humidity, 100, 1, 0.01);
+    }
+}
+tempButton.onclick = () => {
+    colorRoomTemps();
+};
+humidButton.onclick = () => {
+    colorRoomHumid();
+};
+window.onload = () => {
+    colorRoomHumid();
+};
 
 console.log(cookies);
