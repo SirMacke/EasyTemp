@@ -34,6 +34,13 @@ const hour = {
 function hourData() {
     var result = [];
     var date = new Date().toString();
+    var hourNow = date.getHours();
+    var minuteNow = date.getMinutes();
+
+    for (let i = 0; i < dataPack.length; i++) {
+        //var hourData =
+          //  if (dataPack[i].date[16])
+    }
 
     return [date, date[16], date[17], date[19], date[20]];
 }
@@ -58,12 +65,12 @@ function graphUpdate(timespan) {
     ctx.fillRect(0, 0, width, height);
     var img = document.getElementById("img")
     ctx.drawImage(img, 0, 0, width, height)
-    drawNet(x, y);
-    x_axies(x);
-    y_axies(order(timespan.temp, 1), "red", order(timespan.temp), "C°", 0);
-    y_axies(order(timespan.humidity, 1), "green", order(timespan.humidity), "%", 315);
-    drawline(x, y, order(timespan.temp, 1), "red", timespan.temp, order(timespan.temp));
-    drawline(x, y, order(timespan.humidity, 1), "green", timespan.humidity, order(timespan.humidity));
+    drawNet(x, y); // ritar ut rutnät
+    x_axies(x); // sriver ut rätt tid
+    y_axies(order(timespan.temp, 1), "red", order(timespan.temp), "C°", 0); // skriver ut skalan
+    y_axies(order(timespan.humidity, 1), "green", order(timespan.humidity), "%", 315); // skriver ut humidity skalan
+    drawline(x, y, order(timespan.temp, 1), "red", timespan.temp, order(timespan.temp)); //  ritar temp grafen
+    drawline(x, y, order(timespan.humidity, 1), "green", timespan.humidity, order(timespan.humidity)); // ritar humidity grafen
 }
 
 function drawNet(x, y) {
@@ -92,12 +99,12 @@ function drawNet(x, y) {
 
 function x_axies(x) {
     ctx.fillStyle = "white";
-    ctx.border
     var time = new Date();
     if (x == 12 * change) {
         var hourMinutes = time.getMinutes();
         if (CheckLength(time.getMinutes(), 0) == 1) {
             hourMinutes = "0" + time.getMinutes();
+            // kollar om minutvärdet består av en siffra och om den gör det 
         }
         for (i = 0; i <= 6; i++) {
             var hour = new Date
