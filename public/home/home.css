@@ -1,11 +1,40 @@
-html * {
-    color: #fff !important;
-    font-family: "Roboto", sans-serif;
-    box-sizing: border-box;
-}
+@charset "UTF-8";
+
+/* $site-background-color: #222222;
+$container-color: #2a2a2a;
+$unselected-color: #333333;
+$selected-color: #444444;
+$border-color: #333; */
 
 * {
+    color: #fff;
+    font-family: "Roboto", sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
     outline: none;
+}
+
+html {
+    font-size: 8px;
+}
+
+@media screen and (min-width: 700px) {
+    html {
+        font-size: 10px;
+    }
+}
+
+@media screen and (min-width: 1300px) {
+    html {
+        font-size: 12px;
+    }
+}
+
+@media screen and (min-width: 1600px) {
+    html {
+        font-size: 16px;
+    }
 }
 
 body {
@@ -13,47 +42,185 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 0;
-    padding: 0;
-    background-color: #222222;
+    background-color: #1a1b1c;
 }
 
-.map-container {
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 48px;
+    background-color: #242526;
+}
+
+.navbar button {
+    height: calc(48px * 0.8);
+    width: calc(48px * 0.8);
+    margin: 0 calc(48px * 0.1) 0 calc(48px * 0.1);
+    border-radius: calc((48px * 0.8) / 2);
+    line-height: calc(48px * 0.85);
+    font-size: 19.2px;
+    text-align: center;
+    border: 0;
+    padding: 0;
+    background-color: #484d4a;
+    transition: background-color 200ms;
+}
+
+.navbar button:hover {
+    cursor: pointer;
+    background-color: #515253;
+}
+
+.navbar button:active {
+    background-color: #5a5b5c;
+}
+
+.navbar button>i {
+    transition: transform 400ms ease-in-out;
+    transform-origin: 50% 45%;
+}
+
+.navbar button#menu {
+    order: 3;
+}
+
+.navbar button#settings {
+    order: 1;
+}
+
+.navbar #logo {
+    order: 2;
+    transition: filter 100ms, transform 100ms;
+}
+
+.navbar #logo a {
+    text-decoration: none;
+    font-size: calc(48px * 0.5);
+}
+
+.navbar #logo a>i {
+    font-weight: 300;
+    margin-right: calc(48px * 0.08);
+    color: #3f51b5;
+}
+
+.navbar #logo a b {
+    color: #f44336;
+}
+
+.container {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.map {
+    display: grid;
+    width: 50vw;
+    margin-top: 3rem;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto 24% auto;
+    background-color: #333;
+}
+
+@media screen and (max-width: 1300px) {
+    .map {
+        width: 60vw;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .map {
+        width: 70vw;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .map {
+        width: 80vw;
+    }
+}
+
+.room {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #333;
+    text-align: center;
+    border: 2px solid #222;
+    z-index: 0;
+    transition: transform 200ms ease-in-out, filter 200ms ease-in-out, background-color 200ms ease-in-out;
+    text-decoration: none;
+}
+
+.room:not(.hallway) {
+    height: calc(70vmin * 0.38);
+}
+
+.room>div>div {
+    transition: opacity 300ms ease-in-out, max-height 300ms ease-in-out;
+    max-height: 0;
+    opacity: 0;
+}
+
+.room>div>h2 {
+    font-size: 1.5rem;
+}
+
+.room>div>.temp>span::after {
+    content: "°C";
+}
+
+.room:hover>div>div {
+    max-height: 500px;
+    opacity: 1;
+}
+
+.active:hover {
+    cursor: pointer;
+    transform: scale(1.07);
+    z-index: 2;
+}
+
+.active:active {
+    filter: brightness(1.15);
+}
+
+.inactive {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    display: grid;
-    width: 50vw;
-    margin-top: 3rem;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: auto 24% auto;
-    background-color: #2a2a2a;
 }
 
-.map-container>a {
-    display: flex;
-    flex-direction: column;
-    background-color: #333;
-    height: calc(70vmin * 0.38);
-    text-align: center;
-    border: 2px solid #2a2a2a;
-    transition: all 200ms ease;
-    z-index: 0;
-    text-decoration: none;
+.inactive:hover {
+    cursor: default;
 }
 
-.epa-traktor {
-    display: flex;
-    flex-direction: column;
+.hallway {
+    height: calc(70vmin * 0.24);
+    grid-column: 1/4;
+    grid-row: 2/3;
+}
+
+.hallway:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    z-index: 1;
+}
+
+.hallway:active {
+    filter: brightness(1.15);
 }
 
 .temp-humid-buttons {
     margin-top: 5px;
     display: flex;
-    transition: all 200ms ease;
 }
 
 .temp-humid-buttons>div {
@@ -63,8 +230,9 @@ body {
     font-size: 1.5rem;
     line-height: 3rem;
     margin-right: 0.5rem;
-    background-color: #333333;
+    background-color: #333;
     text-align: center;
+    transition: transform 200ms, filter 200ms, background-color 200ms;
 }
 
 .temp-humid-buttons>div:hover {
@@ -77,88 +245,12 @@ body {
     filter: brightness(1.2);
 }
 
-#temp-button {
-    transition: all 100ms ease-in-out;
-}
-
-#temp-button:hover {
+.temp-humid-buttons>#temp-button:hover {
     background-color: #dd2c00;
 }
 
-#humid-button {
-    transition: all 100ms ease-in-out;
-}
-
-#humid-button:hover {
+.temp-humid-buttons>#humid-button:hover {
     background-color: #0054c2;
-}
-
-.inactive>h3 {
-    margin-top: 11vh;
-}
-
-.inactive:hover {
-    cursor: default;
-}
-
-.active>h3 {
-    margin-top: 11vh;
-    transition: all 200ms ease;
-}
-
-.active>div {
-    display: none;
-}
-
-.active:hover {
-    cursor: pointer;
-    transform: scale(1.07);
-    z-index: 1;
-}
-
-.active:hover>h3 {
-    margin-top: 6vh;
-}
-
-.active:hover>div {
-    display: block;
-}
-
-.active:active {
-    filter: brightness(1.15);
-}
-
-.hallway {
-    height: calc(70vmin * 0.24) !important;
-    grid-column: 1/4;
-    grid-row: 2/3;
-}
-
-.hallway>h3 {
-    margin-top: 6vh;
-    transition: all 200ms ease;
-}
-
-.hallway>div {
-    display: none;
-}
-
-.hallway:hover {
-    cursor: pointer;
-    transform: scale(1.07);
-    z-index: 1;
-}
-
-.hallway:hover>h3 {
-    margin-top: 1vh;
-}
-
-.hallway:hover>div {
-    display: block;
-}
-
-.hallway:active {
-    filter: brightness(1.15);
 }
 
 

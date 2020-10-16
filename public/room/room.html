@@ -5,41 +5,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="room.css">
+    <link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Annie Use Your Telescope'>
+    <link rel="stylesheet" href="../room.css">
 </head>
 
 <body>
-    <div class="head" style="width: 100%;">
-        <div class="head" style="width:40%"></div>
-        <div class="head" style="width: 30%;">
-            <h1></h1>
-            <h2 id="temp"></h2>
-            <h2 id="humidity"></h2>
-        </div>
-        <div class="map-container">
-            <div id="room1" href>Pingisrum</div>
-            <div id="room2">Terrariet</div>
-            <div id="room3">Labbet</div>
+    <div id=backgroundHead>
+        <button type="button" onclick="">&#60;-back</button>
+    </div>
+    <div id="head">
+        <h1></h1>
+        <h2 id="temp"></h2>
+        <h2 id="humidity"></h2>
+        <div id="map-container">
+            <div id="room1" href="room/1">Pingisrum
+                <span class="tooltipUP"> 21C° <br> 35%</span>
+            </div>
+            <div id="room3">Labbet
+                <span class="tooltipUP"> 21C° <br> 35%</span>
+            </div>
             <div id="hallway">Hallen</div>
-            <div id="room4">Cafeterian</div>
-            <div id="room5">Klassrummet</div>
-            <div id="room6">Vardagsrummet</div>
+            <div id="room4">Cafeterian
+                <span class="tooltipDown"> 21C° <br> 35%</span>
+            </div>
+            <div id="room5">Klassrummet
+                <span class="tooltipDown"> 21C° <br> 35%</span>
+            </div>
         </div>
     </div>
-
     <div class="graf">
         <canvas id="graf"></canvas>
     </div>
-    <div class="graf">
-        <table>
+    <div>
+        <table id="table">
             <td>
-                <button type="button" class="button" onclick="grafupdate(55.2,6)">timme</button>
+                <button type="button" class="button" onclick="graphUpdate(hour)">timme</button>
             </td>
             <td>
-                <button type="button" class="button" onclick="grafupdate(12,24)">dag</button>
+                <button type="button" class="button" onclick="graphUpdate(day)">dag</button>
             </td>
             <td>
-                <button type="button" class="button" onclick="grafupdate(46,7)">vecka</button>
+                <button type="button" class="button" onclick="graphUpdate(week)">vecka</button>
             </td>
         </table>
     </div>
@@ -48,4 +54,4 @@
 
 </html>
 
-<script src="room.js"></script>
+<script src="../room.js"></script>

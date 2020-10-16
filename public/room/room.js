@@ -5,26 +5,65 @@ const margin = height / 34;
 document.getElementById("graf").setAttribute('width', width);
 document.getElementById("graf").setAttribute('height', height);
 var canvas = document.getElementById("graf");
-var ctx = canvas.getContext("2d")
-const temp = [23, 30.45, 23, 25, 23.45, 18.96, 24, 26];
-const humidity = [39, 36, 47, 42, 75, 68, 40, 45];
+var ctx = canvas.getContext("2d");
+
+var dataPack = decodeURIComponent(document.cookie).replace('dataPack=', '');
+
+dataPack = JSON.parse(dataPack);
+
+console.log(dataPack);
+
+console.log(hourData());
+
+const week = {
+    temp: [23, 21, 23, 25, 23.45, 18.96, 24, 26], // 8
+    humidity: [39, 36, 47, 42, 75, 68, 40, 45],
+    x: 46
+}
+const day = {
+    temp: [23, 21, 23, 25, 23.45, 18.96, 24, 26], // 24
+    humidity: [39, 36, 47, 42, 75, 68, 40, 45],
+    x: 12
+}
+const hour = {
+    temp: [23, 21, 23, 25, 23.45, 18.96, 24, 26], // 7
+    humidity: [39, 36, 47, 42, 75, 68, 40, 45],
+    x: 55.2
+}
+
+function hourData() {
+    var result = [];
+    var date = new Date().toString();
+
+    return [date, date[16], date[17], date[19], date[20]];
+}
+
 var rum = "pingisrum";
 document.querySelector("h1").innerHTML = rum;
-document.getElementById("temp").innerHTML = temp[7] + "C°";
-document.getElementById("humidity").innerHTML = humidity[7] + "%";
-grafupdate(46, 7);
+graphUpdate(week);
 
-function grafupdate(x, y) {
-    x = x * change;
+function graphUpdate(timespan) {
+    document.getElementById("temp").innerHTML = timespan.temp[7] + "C°";
+    document.getElementById("humidity").innerHTML = timespan.humidity[7] + "%";
+    let y;
+    if (timespan.x == 12) {
+        y = 276 / timespan.x;
+    } else {
+        y = 276 / timespan.x + 1;
+    }
+    let x = timespan.x * change;
     y = y * change;
     ctx.fillStyle = "black";
+    ctx.font = "bold 20px Annie Use Your Telescope";
     ctx.fillRect(0, 0, width, height);
+    var img = document.getElementById("img")
+    ctx.drawImage(img, 0, 0, width, height)
     drawNet(x, y);
     x_axies(x);
-    y_axies(order(temp, 1), "red", order(temp), "C°", 0);
-    y_axies(order(humidity, 1), "green", order(humidity), "%", 315);
-    drawline(x, y, order(temp, 1), "red", temp, order(temp));
-    drawline(x, y, order(humidity, 1), "green", humidity, order(humidity))
+    y_axies(order(timespan.temp, 1), "red", order(timespan.temp), "C°", 0);
+    y_axies(order(timespan.humidity, 1), "green", order(timespan.humidity), "%", 315);
+    drawline(x, y, order(timespan.temp, 1), "red", timespan.temp, order(timespan.temp));
+    drawline(x, y, order(timespan.humidity, 1), "green", timespan.humidity, order(timespan.humidity));
 }
 
 function drawNet(x, y) {
@@ -52,18 +91,21 @@ function drawNet(x, y) {
 }
 
 function x_axies(x) {
-    ctx.font = "15px Arial";
     ctx.fillStyle = "white";
     ctx.border
     var time = new Date();
     if (x == 12 * change) {
+        var hourMinutes = time.getMinutes();
+        if (CheckLength(time.getMinutes(), 0) == 1) {
+            hourMinutes = "0" + time.getMinutes();
+        }
         for (i = 0; i <= 6; i++) {
             var hour = new Date
             hour.setUTCHours(time.getHours() - i * 4);
             if (CheckLength(hour.getHours(), 2) == 1) {
-                ctx.fillText("0" + hour.getUTCHours() + ":00", width * 0.84 - i * x * 3.6, height);
+                ctx.fillText("0" + hour.getUTCHours() + ":" + hourMinutes, width * 0.84 - i * x * 3.6, height - 2);
             } else {
-                ctx.fillText(hour.getUTCHours() + ":00", width * 0.84 - i * x * 3.6, height);
+                ctx.fillText(hour.getUTCHours() + ":" + hourMinutes, width * 0.84 - i * x * 3.6, height - 2);
             }
         }
     } else if (x == 55.2 * change) {
@@ -71,15 +113,15 @@ function x_axies(x) {
             var minutes = new Date;
             minutes.setUTCMinutes(time.getMinutes() - i * 10);
             if (CheckLength(minutes.getMinutes(), 0) == 1) {
-                ctx.fillText(minutes.getHours() + ":0" + minutes.getMinutes(), width * 0.86 - i * x, height);
+                ctx.fillText(minutes.getHours() + ":0" + minutes.getMinutes(), width * 0.86 - i * x, height - 2);
             } else {
-                ctx.fillText(minutes.getHours() + ":" + minutes.getMinutes(), width * 0.86 - i * x, height);
+                ctx.fillText(minutes.getHours() + ":" + minutes.getMinutes(), width * 0.86 - i * x, height - 2);
             }
         }
     } else {
         for (i = 0; i <= 6; i++) {
             var month = time.getMonth() + 1;
-            ctx.fillText(time.getDate() - i + "/" + month, width * 0.85 - i * x * 0.95, height);
+            ctx.fillText(time.getDate() - i + "/" + month, width * 0.85 - i * x * 0.95, height - 2);
         }
     }
 }

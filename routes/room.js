@@ -9,6 +9,20 @@ router.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/room', 'room.html'));
 });
 
+router.get('/:id', async(req, res) => {
+    const query = { arduinoId: req.params.id };
+    const sort = { date: 1 };
+
+    const dataPack = await DataPack.find(query).sort(sort);
+    if (!dataPack) return res.status(404).send('The dataPack was not found.');
+
+    console.log(dataPack);
+
+    res.cookie('dataPack', JSON.stringify(dataPack));
+
+    res.sendFile(path.join(__dirname, '../public/room', 'room.html'));
+});
+
 router.post('/', async(req, res) => {
     let dataPack = new DataPack({
         arduinoId: req.body.arduinoId,
