@@ -1,38 +1,34 @@
 const path = require('path');
-//const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 //const validate = require('../middleware/validate.js');
+const { DataPack } = require('../models/dataPack');
 const express = require('express');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    let test = {
-        name: "Test",
-        package: 1
-    }
-    res.cookie('name', test.name);
-    res.cookie('package', test.package);
-
     res.sendFile(path.join(__dirname, '../public/home', 'home.html'));
 });
 
-/*router.post('/', validate(validateRequestGame), async (req, res) => {
-    let requestGame = new RequestGame({
-        name: req.body.name,
-        email: req.body.email,
-        game: req.body.game,
-        info: req.body.info
-    });
-    
-    try {
-        const result = await requestGame.save();
+router.get('/live', async(req, res) => {
+    const date = new Date();
+    const query = { arduinoId: 1, temperature: 1, humidity: 1, date: 1, _id: 0 };
+    const sort = { date: 1 };
+
+    const minutedifferent = date.getMinutes() - 1;
+    const minuteComparerDate = new Date();
+    minuteComparerDate.setMinutes(minutedifferent);
+
+    const dataPack = await DataPack.find({ date: { $gte: minuteComparerDate } }, query).sort(sort);
+    if (!dataPack) return res.status(404).send('The dataPack was not found.');
+
+    const numberOfInputs = 4;
+    var newData = [];
+
+    for (let i = 1; i < numberOfInputs + 1; i++) {
+        newData.push(dataPack[dataPack.length - i]);
     }
-    catch (ex) {
-        for (field in ex.errors) {
-            console.log(ex.errors[field].message);
-        }
-    }
-  
-    res.send("Thanks for submitting a game request!");
-});*/
+
+    res.send(JSON.stringify(newData));
+});
 
 module.exports = router;

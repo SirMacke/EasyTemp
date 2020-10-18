@@ -7,51 +7,80 @@ document.getElementById("graf").setAttribute('height', height);
 var canvas = document.getElementById("graf");
 var ctx = canvas.getContext("2d");
 
-var dataPack = decodeURIComponent(document.cookie).replace('dataPack=', '');
+var hourDataPack = decodeURIComponent(document.cookie).split('; ').find(row => row.startsWith('hourDataPack')).split('=')[1];
+hourDataPack = JSON.parse(hourDataPack);
 
-dataPack = JSON.parse(dataPack);
+var dayDataPack = decodeURIComponent(document.cookie).split('; ').find(row => row.startsWith('dayDataPack')).split('=')[1];
+dayDataPack = JSON.parse(dayDataPack);
 
-console.log(dataPack);
-
-console.log(hourData());
+var weekDataPack = decodeURIComponent(document.cookie).split('; ').find(row => row.startsWith('weekDataPack')).split('=')[1];
+weekDataPack = JSON.parse(weekDataPack);
 
 const week = {
-    temp: [23, 21, 23, 25, 23.45, 18.96, 24, 26], // 8
-    humidity: [39, 36, 47, 42, 75, 68, 40, 45],
+    temp: [],
+    humidity: [],
     x: 46
 }
 const day = {
-    temp: [23, 21, 23, 25, 23.45, 18.96, 24, 26], // 24
-    humidity: [39, 36, 47, 42, 75, 68, 40, 45],
+    temp: [],
+    humidity: [],
     x: 12
 }
 const hour = {
-    temp: [23, 21, 23, 25, 23.45, 18.96, 24, 26], // 7
-    humidity: [39, 36, 47, 42, 75, 68, 40, 45],
+    temp: [],
+    humidity: [],
     x: 55.2
 }
 
-function hourData() {
-    var result = [];
-    var date = new Date().toString();
-    var hourNow = date.getHours();
-    var minuteNow = date.getMinutes();
+dataFiller();
 
-    for (let i = 0; i < dataPack.length; i++) {
-        //var hourData =
-          //  if (dataPack[i].date[16])
+function dataFiller() {
+    for (let i = 0; i < hourDataPack.length; i++) {
+        hour.temp.push(hourDataPack[i].temperature);
+        hour.humidity.push(hourDataPack[i].humidity);
     }
-
-    return [date, date[16], date[17], date[19], date[20]];
+    for (let i = 0; i < dayDataPack.length; i++) {
+        day.temp.push(dayDataPack[i].temperature);
+        day.humidity.push(dayDataPack[i].humidity);
+    }
+    for (let i = 0; i < weekDataPack.length; i++) {
+        week.temp.push(weekDataPack[i].temperature);
+        week.humidity.push(weekDataPack[i].humidity);
+    }
 }
 
-var rum = "pingisrum";
-document.querySelector("h1").innerHTML = rum;
-graphUpdate(week);
+var rum = ['Pingisrum', 'Terrariet', 'Hallen', 'Klassrummet', 'Vardagsrummet'];
+document.querySelector("h1").innerHTML = rum[hourDataPack[0].arduinoId - 1];
+
+graphUpdate(day);
+
+const interval = setInterval(function() {
+    var url = window.location.href + "/live";
+    function updateRoomLiveData(data) {
+        newData = JSON.parse(data);
+
+        document.getElementById("temp").innerHTML = newData.temperature + "C°";
+        document.getElementById("humidity").innerHTML = newData.humidity + "%";
+    }
+
+    httpGetAsync(url, updateRoomLiveData);
+
+    function httpGetAsync(theUrl, callback) {
+        var xmlHttp = new XMLHttpRequest();
+    
+        xmlHttp.onreadystatechange = function() { 
+            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                callback(xmlHttp.responseText);
+        }
+    
+        xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+        xmlHttp.send(null);
+    }
+}, 1000);
 
 function graphUpdate(timespan) {
-    document.getElementById("temp").innerHTML = timespan.temp[7] + "C°";
-    document.getElementById("humidity").innerHTML = timespan.humidity[7] + "%";
+    document.getElementById("temp").innerHTML = hourDataPack[hourDataPack.length - 1].temperature + "C°";
+    document.getElementById("humidity").innerHTML = hourDataPack[hourDataPack.length - 1].humidity + "%";
     let y;
     if (timespan.x == 12) {
         y = 276 / timespan.x;
@@ -63,8 +92,6 @@ function graphUpdate(timespan) {
     ctx.fillStyle = "black";
     ctx.font = "bold 20px Annie Use Your Telescope";
     ctx.fillRect(0, 0, width, height);
-    var img = document.getElementById("img")
-    ctx.drawImage(img, 0, 0, width, height)
     drawNet(x, y); // ritar ut rutnät
     x_axies(x); // sriver ut rätt tid
     y_axies(order(timespan.temp, 1), "red", order(timespan.temp), "C°", 0); // skriver ut skalan

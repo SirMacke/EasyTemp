@@ -1,4 +1,4 @@
 {
     "jwtPrivateKey": "1234",
-    "db": "mongodb://localhost/easytemp"
+    "db": "mongodb+srv://EasyTemp:mJcWOe2xb3MAsGsz@cluster0.s8lbf.azure.mongodb.net/Cluster0?retryWrites=true"
 }

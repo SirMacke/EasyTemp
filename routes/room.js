@@ -10,17 +10,75 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', async(req, res) => {
-    const query = { arduinoId: req.params.id };
+    const date = new Date();
+    const query = { arduinoId: 1, temperature: 1, humidity: 1, date: 1, _id: 0 };
     const sort = { date: 1 };
 
-    const dataPack = await DataPack.find(query).sort(sort);
-    if (!dataPack) return res.status(404).send('The dataPack was not found.');
+    const hourdifferent = date.getHours() - 1;
+    const hourComparerDate = new Date();
+    hourComparerDate.setHours(hourdifferent);
 
-    console.log(dataPack);
+    const daydifferent = date.getDate() - 1;
+    const dayComparerDate = new Date();
+    dayComparerDate.setDate(daydifferent);
 
-    res.cookie('dataPack', JSON.stringify(dataPack));
+    const weekdifferent = date.getDate() - 7;
+    const weekComparerDate = new Date();
+    weekComparerDate.setDate(weekdifferent);
+
+    const hourDataPack = await DataPack.find({ arduinoId: req.params.id, date: { $gte: hourComparerDate } }, query).sort(sort);
+    if (!hourDataPack) return res.status(404).send('The hourDataPack was not found.');
+
+    const dayDataPack = await DataPack.find({ arduinoId: req.params.id, date: { $gte: dayComparerDate } }, query).sort(sort);
+    if (!dayDataPack) return res.status(404).send('The dayDataPack was not found.');
+
+    const weekDataPack = await DataPack.find({ arduinoId: req.params.id, date: { $gte: weekComparerDate } }, query).sort(sort);
+    if (!weekDataPack) return res.status(404).send('The weekDataPack was not found.');
+
+    function collectClientData(type) {
+        var result = [];
+        
+        if (type == 'hour') {
+            for (let i = 0; i < hourDataPack.length; i += Math.floor(hourDataPack.length / 7)) {
+                result.push(hourDataPack[i]);
+            }
+        }
+        if (type == 'day') {
+            for (let i = 0; i < dayDataPack.length; i += Math.floor(dayDataPack.length / 24)) {
+                result.push(dayDataPack[i]);
+            }
+        }
+        if (type == 'week') {
+            for (let i = 0; i < weekDataPack.length; i += Math.floor(weekDataPack.length / 7)) {
+                result.push(weekDataPack[i]);
+            }
+        }
+        
+        return result;
+    }
+
+    res.cookie('hourDataPack', JSON.stringify(collectClientData('hour')));
+    res.cookie('dayDataPack', JSON.stringify(collectClientData('day')));
+    res.cookie('weekDataPack', JSON.stringify(collectClientData('week')));
 
     res.sendFile(path.join(__dirname, '../public/room', 'room.html'));
+});
+
+router.get('/:id/live', async(req, res) => {
+    const date = new Date();
+    const query = { arduinoId: 1, temperature: 1, humidity: 1, date: 1, _id: 0 };
+    const sort = { date: 1 };
+
+    const minutedifferent = date.getMinutes() - 1;
+    const minuteComparerDate = new Date();
+    minuteComparerDate.setMinutes(minutedifferent);
+
+    const dataPack = await DataPack.find({ arduinoId: req.params.id, date: { $gte: minuteComparerDate } }, query).sort(sort);
+    if (!dataPack) return res.status(404).send('The dataPack was not found.');
+
+    var newData = dataPack[dataPack.length - 1];
+
+    res.send(JSON.stringify(newData));
 });
 
 router.post('/', async(req, res) => {

@@ -6,12 +6,36 @@ let roomsArray = [
     { temperature: 20, humidity: 30 },
     { temperature: 19, humidity: 40 },
 ];
-let writeRoomData = () => {
-    for (let i in roomsArray) {
-        $(`#room${i}>div>.temp>span`).html(roomsArray[i].temperature.toString());
-        $(`#room${i}>div>.humid>span`).html(roomsArray[i].humidity.toString());
+
+const interval = setInterval(function() {
+    var url = window.location.href + "live";
+    function updateRoomLiveData(data) {
+        var newData = JSON.parse(data);
+
+        for (let i in newData) {
+            $(`#room${newData[i].arduinoId - 1}>div>.temp>span`).html(newData[i].temperature.toString());
+            $(`#room${newData[i].arduinoId - 1}>div>.humid>span`).html(newData[i].humidity.toString());
+
+            roomsArray[newData[i].arduinoId - 1].temperature = newData[i].temperature;
+            roomsArray[newData[i].arduinoId - 1].humidity = newData[i].humidity;
+        }
     }
-};
+
+    httpGetAsync(url, updateRoomLiveData);
+
+    function httpGetAsync(theUrl, callback) {
+        var xmlHttp = new XMLHttpRequest();
+    
+        xmlHttp.onreadystatechange = function() { 
+            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                callback(xmlHttp.responseText);
+        }
+    
+        xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+        xmlHttp.send(null);
+    }
+}, 1000);
+
 let temperatureExponentiate = (currentTemp, minTemp, maxTemp, bias) => {
     let float = (currentTemp - minTemp) / (maxTemp - minTemp);
     if (currentTemp < minTemp)
@@ -43,6 +67,7 @@ let humidityExponantiate = (currentTemp, minTemp, maxTemp, bias) => {
     let exponentFunction = (x, b) => ((Math.exp(b) ** x) - 1) / (Math.exp(b) - 1);
     return `rgb(0, 0, ${exponentFunction(float, bias) * 255})`;
 };
+
 let colorRoomTemps = () => {
     for (let i = 0; i < roomsArray.length; i++) {
         $(`#room${i}`).css('background-color', temperatureExponentiate(roomsArray[i].temperature, 15, 30, -4));
@@ -61,5 +86,4 @@ $('#humid-button').on('click', () => {
 });
 window.onload = () => {
     colorRoomTemps();
-    writeRoomData();
 };
