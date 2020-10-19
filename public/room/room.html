@@ -5,51 +5,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Annie Use Your Telescope'>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/89a1a46ea6.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../room.css">
 </head>
 
 <body>
-    <div id=backgroundHead>
-        <button type="button" onclick="window.history.back()">&#60;-back</button>
+    <div class="navbar">
+        <button href="#" id="menu">
+            <i class="fas fa-bars"></i>
+        </button>
+        <button href="#" id="settings" class="has-dropdown">
+            <i class="fas fa-cog"></i>
+        </button>
+        <div id="logo">
+            <a href="../"><i>Easy</i><b>Temp</b></a>
+        </div>
     </div>
     <div id="head">
         <h1></h1>
         <h2 id="temp"></h2>
         <h2 id="humidity"></h2>
-        <div id="map-container">
-            <div id="room1" href="room/1">Pingisrum
-                <span class="tooltipUP"> 21C° <br> 35%</span>
-            </div>
-            <div id="room3">Labbet
-                <span class="tooltipUP"> 21C° <br> 35%</span>
-            </div>
-            <div id="hallway">Hallen</div>
-            <div id="room4">Cafeterian
-                <span class="tooltipDown"> 21C° <br> 35%</span>
-            </div>
-            <div id="room5">Klassrummet
-                <span class="tooltipDown"> 21C° <br> 35%</span>
-            </div>
+    </div>
+    <div id="map-container">
+        <div id="room1" href="room/1">Pingisrum
+            <span class="tooltipUP"> 21C° <br> 35%</span>
+        </div>
+        <div id="room3">Labbet
+            <span class="tooltipUP"> 21C° <br> 35%</span>
+        </div>
+        <div id="hallway">Hallen</div>
+        <div id="room4">Cafeterian
+            <span class="tooltipDown"> 21C° <br> 35%</span>
+        </div>
+        <div id="room5" onclick="window.location.hostname">Klassrummet
+            <span class="tooltipDown"> 21C° <br> 35%</span>
         </div>
     </div>
-    <div class="graf">
-        <canvas id="graf"></canvas>
+    <div id="graf-container">
+        <div class="graf">
+            <canvas id="graf"></canvas>
+        </div>
+        <div>
+            <table id="table">
+                <td>
+                    <button type="button" class="button" onclick="graphUpdate(hour)">Timme</button>
+                </td>
+                <td>
+                    <button type="button" class="button" onclick="graphUpdate(day)">Dag</button>
+                </td>
+                <td>
+                    <button type="button" class="button" onclick="graphUpdate(week)">Vecka</button>
+                </td>
+            </table>
+        </div>
     </div>
-    <div>
-        <table id="table">
-            <td>
-                <button type="button" class="button" onclick="graphUpdate(hour)">timme</button>
-            </td>
-            <td>
-                <button type="button" class="button" onclick="graphUpdate(day)">dag</button>
-            </td>
-            <td>
-                <button type="button" class="button" onclick="graphUpdate(week)">vecka</button>
-            </td>
-        </table>
-    </div>
-
 </body>
 
 </html>

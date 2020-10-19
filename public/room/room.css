@@ -1,81 +1,179 @@
-#backgroundHead {
-    background-color: royalblue;
-    height: 200px;
+@charset "UTF-8";
+
+/* $site-background-color: #222222;
+$container-color: #2a2a2a;
+$unselected-color: #333333;
+$selected-color: #444444;
+$border-color: #333; */
+
+* {
+    color: #fff;
+    font-family: "Roboto", sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    outline: none;
 }
-#backgroundHead button{
-    position: relative;
-    font-size: 16px;
-    border: 2px solid black;
-    background-color: #333333;
-    height: 30px;
-    width: 80px;
+
+html {
+    font-size: 8px;
+}
+
+@media screen and (min-width: 700px) {
+    html {
+        font-size: 10px;
+    }
+}
+
+@media screen and (min-width: 1300px) {
+    html {
+        font-size: 12px;
+    }
+}
+
+@media screen and (min-width: 1600px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #1a1b1c;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 48px;
+    background-color: #242526;
+}
+
+.navbar button {
+    height: calc(48px * 0.8);
+    width: calc(48px * 0.8);
+    margin: 0 calc(48px * 0.1) 0 calc(48px * 0.1);
+    border-radius: calc((48px * 0.8) / 2);
+    line-height: calc(48px * 0.85);
+    font-size: 19.2px;
     text-align: center;
-    color: white;
-    left: 10px;
-    top: 10px;
+    border: 0;
+    padding: 0;
+    background-color: #484d4a;
+    transition: background-color 200ms;
 }
+
+.navbar button:hover {
+    cursor: pointer;
+    background-color: #515253;
+}
+
+.navbar button:active {
+    background-color: #5a5b5c;
+}
+
+.navbar button>i {
+    transition: transform 400ms ease-in-out;
+    transform-origin: 50% 45%;
+}
+
+.navbar button#menu {
+    order: 3;
+}
+
+.navbar button#settings {
+    order: 1;
+}
+
+.navbar #logo {
+    order: 2;
+    transition: filter 100ms, transform 100ms;
+}
+
+.navbar #logo a {
+    text-decoration: none;
+    font-size: calc(48px * 0.5);
+}
+
+.navbar #logo a>i {
+    font-weight: 300;
+    margin-right: calc(48px * 0.08);
+    color: #1892FF;
+}
+
+.navbar #logo a b {
+    color: #f44336;
+}
+
 #head {
     height: 150px;
-    position: relative;
+    position: absolute;
     width: 20%;
     left: 40%;
-    top: -200px;
-    background-color: white;
-    border-radius: 30px;
+    top: 10vh;
 }
-h1{
-    color: black;
+h1 {
+    color: white;
     text-align: center;
-    font-family: "Annie Use Your Telescope";
     text-shadow: 3px 3px 4 gray;
 }
 #temp {
     text-align: center;
     text-decoration-style: solid;
-    color: red;
+    color: #FF2618;
+    margin-top: 10px;
 }
-#humidity{
-text-align: center;
-color: green;
+#humidity {
+    text-align: center;
+    color: #1892FF;
+    margin-top: 10px;
 }
-#graf{
-    border: 5px solid #000;
-    border-radius: 10px;
+
+#graf-container {
+    position: absolute;
+    left: 50%;
+    top: 52.5%;
+    transform: translate(-50%, -50%);
+}
+#graf {
+    width: 50vw;
 }
 .graf {
     position: relative;
     box-sizing: border-box;
     margin: auto;
-    width: 526px;
     border-radius: 5px;
-    background-color: black;
-    top: -160px;
 }
 .button {
-    background-color: red; 
+    background-color: #FF2618; 
     color:  white;
     padding: 10px 25px;
     text-align: center;
-    text-decoration: red;
+    text-decoration: #FF2618;
     display: inline-block;
     font-size: 16px;
     width: 100%;  border: none;
     border: black;
+    margin-top: 25px;
 }
 .button:hover {
     transform:scale(1.05);
 }
 #table {
     position: relative;
-    top: -160px;
     margin: auto;
     width: 20%;
 }
 
 #map-container {
     position: absolute;
-    left: 210%;
-    top: 0%;
+    right: 2.5vh;
+    bottom: 2.5vh;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;

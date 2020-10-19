@@ -103,11 +103,11 @@ body {
 .navbar #logo a>i {
     font-weight: 300;
     margin-right: calc(48px * 0.08);
-    color: #3f51b5;
+    color: #1892FF;
 }
 
 .navbar #logo a b {
-    color: #f44336;
+    color: #FF2618;
 }
 
 .container {
@@ -120,7 +120,7 @@ body {
     display: grid;
     width: 50vw;
     margin-top: 3rem;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     grid-template-rows: auto 24% auto;
     background-color: #333;
 }
@@ -167,11 +167,27 @@ body {
 }
 
 .room>div>h2 {
-    font-size: 1.5rem;
+    font-size: 1.55rem;
+    margin-bottom: 2px;
+}
+
+.room>div>.temp {
+    margin-bottom: 2px;
+}
+
+.room>div>.temp>span {
+    margin-left: 3px;
+}
+.room>div>.humid>span {
+    margin-left: 3px;
 }
 
 .room>div>.temp>span::after {
-    content: "°C";
+    content: " °C";
+}
+
+.room>div>.humid>span::after {
+    content: " %";
 }
 
 .room:hover>div>div {
@@ -218,6 +234,15 @@ body {
     filter: brightness(1.15);
 }
 
+.klassrum {
+    grid-column: 2/4;
+    grid-row: 3/3;
+}
+
+.vardagsrum {
+    grid-row: 3/3;
+}
+
 .temp-humid-buttons {
     margin-top: 5px;
     display: flex;
@@ -246,12 +271,9 @@ body {
 }
 
 .temp-humid-buttons>#temp-button:hover {
-    background-color: #dd2c00;
+    background-color: #FF2618;
 }
 
 .temp-humid-buttons>#humid-button:hover {
     background-color: #0054c2;
 }
-
-
-/*# sourceMappingURL=home.css.map */

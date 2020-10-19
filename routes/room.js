@@ -36,27 +36,30 @@ router.get('/:id', async(req, res) => {
     if (!weekDataPack) return res.status(404).send('The weekDataPack was not found.');
 
     function collectClientData(type) {
-        var result = [];
-        
+        var result = [[], []];
         if (type == 'hour') {
-            for (let i = 0; i < hourDataPack.length; i += Math.floor(hourDataPack.length / 7)) {
-                result.push(hourDataPack[i]);
+            for (let i = 0; i < hourDataPack.length; i += Math.floor(hourDataPack.length / 100)) {
+                result[0].push(hourDataPack[i].temperature);
+                result[1].push(hourDataPack[i].humidity);
             }
         }
         if (type == 'day') {
-            for (let i = 0; i < dayDataPack.length; i += Math.floor(dayDataPack.length / 24)) {
-                result.push(dayDataPack[i]);
+            for (let i = 0; i < dayDataPack.length; i += Math.floor(dayDataPack.length / 200)) {
+                result[0].push(dayDataPack[i].temperature);
+                result[1].push(dayDataPack[i].humidity);
             }
         }
         if (type == 'week') {
-            for (let i = 0; i < weekDataPack.length; i += Math.floor(weekDataPack.length / 7)) {
-                result.push(weekDataPack[i]);
+            for (let i = 0; i < weekDataPack.length; i += Math.floor(weekDataPack.length / 200)) {
+                result[0].push(weekDataPack[i].temperature);
+                result[1].push(weekDataPack[i].humidity);
             }
         }
-        
+
         return result;
     }
 
+    res.cookie('arduinoId', JSON.stringify(hourDataPack[0].arduinoId));
     res.cookie('hourDataPack', JSON.stringify(collectClientData('hour')));
     res.cookie('dayDataPack', JSON.stringify(collectClientData('day')));
     res.cookie('weekDataPack', JSON.stringify(collectClientData('week')));
