@@ -166,6 +166,8 @@ body {
 }
 
 .epa-traktor {
+    position: relative;
+    top: 3rem;
     display: flex;
 }
 
@@ -368,4 +370,20 @@ body {
 
 .temp-humid-buttons>#humid-button:hover {
     background-color: #0054c2;
+}
+
+#signup {
+    position: absolute;
+    bottom: 30px;
+    color: darkgray;
+    font-size: 1.1em;
+    left: 35px;
+}
+
+#login {
+    position: absolute;
+    bottom: 30px;
+    color: darkgray;
+    font-size: 1.1em;
+    right: 35px;
 }

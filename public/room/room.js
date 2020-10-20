@@ -120,9 +120,9 @@ function x_axies(timespan, btn) {
             var hour = new Date
             hour.setUTCHours(time.getHours() - i * 4);
             if (CheckLength(hour.getHours(), 2) == 1) {
-                ctx.fillText("0" + hour.getUTCHours() + ":" + hourMinutes, width * 0.86 - i * 46 * change, height - 2);
+                ctx.fillText("0" + hour.getUTCHours() + ":" + hourMinutes, width / 13 + i * 45* change, height - 2);
             } else {
-                ctx.fillText(hour.getUTCHours() + ":" + hourMinutes, width * 0.86 - i * 46 * change, height - 2);
+                ctx.fillText(hour.getUTCHours() + ":" + hourMinutes, width / 13 + i * 45 * change, height - 2);
             }
         }
     } else if (btn == "hour") {
@@ -130,15 +130,15 @@ function x_axies(timespan, btn) {
             var minutes = new Date;
             minutes.setUTCMinutes(time.getMinutes() - i * 10);
             if (CheckLength(minutes.getMinutes(), 0) == 1) {
-                ctx.fillText(minutes.getHours() + ":0" + minutes.getMinutes(), width * 0.86 - i * 46 * change, height - 2);
+                ctx.fillText(minutes.getHours() + ":0" + minutes.getMinutes(), width / 13 + i * 45* change, height - 2);
             } else {
-                ctx.fillText(minutes.getHours() + ":" + minutes.getMinutes(), width * 0.86 - i * 46 * change, height - 2);
+                ctx.fillText(minutes.getHours() + ":" + minutes.getMinutes(), width / 13 + i * 45 *change, height - 2);
             }
         }
     } else {
         for (i = 0; i <= 6; i++) {
             var month = time.getMonth() + 1;
-            ctx.fillText(time.getDate() - i + "/" + month, width * 0.86 - i * 46 * change, height - 2);
+            ctx.fillText(time.getDate() - i + "/" + month, width / 13 + i * 45 *change, height - 2);
         }
     }
 }
@@ -148,6 +148,7 @@ function CheckLength(firstNumber, v) {
     firstNumber = firstNumber.toString();
     firstNumber = firstNumber.split("");
     return firstNumber.length;
+    //skickar längden 
 }
 
 function y_axies(max, color, diff, unit, type) {

@@ -1,13 +1,13 @@
 "use strict";
 
 // Temperature constants
-let MAX_TEMP = 30;
-let MIN_TEMP = 10;
-let TEMP_BIAS = -2;
+let MAX_TEMP;
+let MIN_TEMP;
+let TEMP_BIAS;
 // Humidity letants
-let MAX_HUMID = 45;
-let MIN_HUMID = 25;
-let HUMID_BIAS = -8;
+let MAX_HUMID;
+let MIN_HUMID;
+let HUMID_BIAS;
 // Jquery DOM elements
 const thermometer = $('.thermometer');
 const tempText = $('#temperature-text');
@@ -181,23 +181,43 @@ let colorRooms = () => {
     setGradient();
 };
 
-let getValues = () => {
+let getValues = (startup) => {
     if (view === 'temperature') {
+        if (startup) {
+            minValText.html('' + MIN_TEMP);
+            maxValText.html('' + MAX_TEMP);
+            biasText.html('' + TEMP_BIAS);
+            return;
+        }
         MAX_TEMP = +maxValueSlider.val() || 30;
         MIN_TEMP = +minValueSlider.val() || 10;
-        TEMP_BIAS = +biasValueSlider.val() || 0;
+        TEMP_BIAS = +biasValueSlider.val() || -2;
+        localStorage.setItem('max-temperature', '' + MAX_TEMP);
+        localStorage.setItem('min-temperature', '' + MIN_TEMP);
+        localStorage.setItem('temperature-bias', '' + TEMP_BIAS);
         minValText.html('' + MIN_TEMP);
         maxValText.html('' + MAX_TEMP);
         biasText.html('' + TEMP_BIAS);
         colorRooms();
         setGradient();
     } else {
+        if (startup) {
+            minValText.html('' + MIN_HUMID);
+            maxValText.html('' + MAX_HUMID);
+            biasText.html('' + HUMID_BIAS);
+            return;
+        }
         MAX_HUMID = +maxValueSlider.val() || 50;
-        MIN_HUMID = +minValueSlider.val() || 20;
-        HUMID_BIAS = +biasValueSlider.val() || 0;
+        MIN_HUMID = +minValueSlider.val() || 1;
+        HUMID_BIAS = +biasValueSlider.val() || -8;
+        localStorage.setItem('max-temperature', '' + MAX_HUMID);
+        localStorage.setItem('min-temperature', '' + MIN_HUMID);
+        localStorage.setItem('temperature-bias', '' + HUMID_BIAS);
         minValText.html('' + MIN_HUMID);
         maxValText.html('' + MAX_HUMID);
         biasText.html('' + HUMID_BIAS);
+        colorRooms();
+        setGradient();
     }
 };
 
@@ -234,11 +254,14 @@ tempButton.on('click', () => {
     view = "temperature";
     placeholderText.html('Temperature');
     colorRooms();
+    getValues(true);
 });
+
 humidButton.on('click', () => {
     view = "humidity";
     placeholderText.html('Humidity');
     colorRooms();
+    getValues(true);
 });
 
 range.on('change', () => {
@@ -246,8 +269,25 @@ range.on('change', () => {
 });
 
 window.onload = () => {
+    if (typeof(Storage) !== "undefined") {
+        MIN_TEMP = +localStorage.getItem("min-temperature") || 30;
+        MAX_TEMP = +localStorage.getItem("max-temperature") || 10;
+        TEMP_BIAS = +localStorage.getItem("temperature-bias") || -2;
+        MIN_HUMID = +localStorage.getItem("min-humidity") || 50;
+        MAX_HUMID = +localStorage.getItem("max-humidity") || 1;
+        HUMID_BIAS = +localStorage.getItem("humidity-bias") || -8;
+    } else {
+        MIN_TEMP = 30;
+        MAX_TEMP = 10;
+        TEMP_BIAS = -2;
+        MIN_HUMID = 50;
+        MAX_HUMID = 1;
+        HUMID_BIAS = -8;
+    }
     view = "temperature"; // Default view
     placeholderText.html('Temperature');
     colorRooms();
     setGradient();
+    writeRoomData();
+    getValues(true);
 };

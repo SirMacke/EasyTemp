@@ -1,37 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="/login.css">
-  </head>
-  <body>
+    <title>Room</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/89a1a46ea6.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/login.css">
+</head>
 
-    <h2>Logga In</h2>
+<body>
+    <div class="navbar">
+        <button href="#" id="menu">
+        <i class="fas fa-bars"></i>
+    </button>
+        <button href="#" id="settings" class="has-dropdown">
+        <i class="fas fa-cog"></i>
+    </button>
+        <div id="logo">
+            <a href="../"><i>Easy</i><b>Temp</b></a>
+        </div>
+    </div>
+    <main>
+        <form action="/user/login" method="post" enctype="application/x-www-form-urlencoded">
+            <h2>Login</h2>
+            <div id="line"></div>
+            <input type="text" name="usernameOrEmail" placeholder="Username or Email">
+            <input type="password" name="password" placeholder="Password">
+            <button type="submit">Login</button>
+        </form>
+        <a href="/forgot-password" id="forgotPassword">Forgot Your Password?</a>
+        <a href="/user/signup" id="signup">Sign Up</a>
+    </main>
 
+</body>
 
-      <div class="container">
-        <label for="uname"><b>Användarnamn</b></label>
-        <input type="text" placeholder="Skriv Användarnamn" name="anamn" required>
-
-        <label for="psw"><b>Lösenord</b></label>
-        <input type="password" placeholder="Skriv Lösenord" name="lösen" required>
-            
-        <button type="submit">Login</button>
-        <label>
-          <input type="checkbox" checked="checked" name="remember"> Kom ihåg mig
-        </label>
-      </div>
-
-      <div class="container" style="background-color:#f1f1f1">
-        <button type="button" class="cancelbtn">Avbryt</button>
-      </div>
-
-      <div class="container" style="background-color: #f1f1f1;">
-        <button type="button" class="signupbtn">Registrera dig</button>
-      </div>
-    </form>
-
-  </body>
 </html>
