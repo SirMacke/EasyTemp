@@ -1,0 +1,164 @@
+@charset "UTF-8";
+
+/* $site-background-color: #222222;
+$container-color: #2a2a2a;
+$unselected-color: #333333;
+$selected-color: #444444;
+$border-color: #333; */
+
+* {
+    color: #fff;
+    font-family: "Roboto", sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    outline: none;
+}
+
+html {
+    font-size: 8px;
+}
+
+@media screen and (min-width: 700px) {
+    html {
+        font-size: 10px;
+    }
+}
+
+@media screen and (min-width: 1300px) {
+    html {
+        font-size: 12px;
+    }
+}
+
+@media screen and (min-width: 1600px) {
+    html {
+        font-size: 14px;
+    }
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #1a1b1c;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 48px;
+    background-color: #242526;
+}
+
+.navbar button {
+    height: calc(48px * 0.8);
+    width: calc(48px * 0.8);
+    margin: 0 calc(48px * 0.1) 0 calc(48px * 0.1);
+    border-radius: calc((48px * 0.8) / 2);
+    line-height: calc(48px * 0.85);
+    font-size: 15px;
+    text-align: center;
+    border: 0;
+    padding: 0;
+    background-color: #484d4a;
+    transition: background-color 200ms;
+}
+
+.navbar button:hover {
+    cursor: pointer;
+    background-color: #515253;
+}
+
+.navbar button:active {
+    background-color: #5a5b5c;
+}
+
+.navbar button>i {
+    transition: transform 400ms ease-in-out;
+    transform-origin: 50% 45%;
+}
+
+.navbar button#menu {
+    order: 3;
+}
+
+.navbar button#settings {
+    order: 1;
+}
+
+.navbar #logo {
+    order: 2;
+    transition: filter 100ms, transform 100ms;
+}
+
+.navbar #logo a {
+    text-decoration: none;
+    font-size: calc(48px * 0.4);
+}
+
+.navbar #logo a>i {
+    font-weight: 300;
+    margin-right: calc(48px * 0.08);
+    color: #1892FF;
+}
+
+.navbar #logo a b {
+    color: #f44336;
+}
+
+main {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+main h2 {
+    font-size: 5em;
+    margin-bottom: 100px;
+    color: #0054c2;
+}
+
+main #container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 75vw;
+}
+
+main div p {
+    font-size: 2em;
+    font-weight: 700;
+    margin-bottom: 50px;
+    color: #dd2c00;
+}
+
+main div .data {
+    font-size: 3em;
+    color: white;
+}
+
+#link1 {
+    position: absolute;
+    bottom: 30px;
+    color: darkgray;
+    font-size: 1.1em;
+    left: 35px;
+}
+
+#link2 {
+    position: absolute;
+    bottom: 30px;
+    color: darkgray;
+    font-size: 1.1em;
+    right: 35px;
+    text-decoration: underline;
+}
+
+#link2:hover {
+    cursor: pointer;
+}

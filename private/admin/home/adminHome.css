@@ -109,3 +109,56 @@ body {
 .navbar #logo a b {
     color: #f44336;
 }
+
+main {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+main h2 {
+    font-size: 5em;
+    margin-bottom: 100px;
+    color: #0054c2;
+}
+
+main #container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 75vw;
+}
+
+main div p {
+    font-size: 2em;
+    font-weight: 700;
+    margin-bottom: 50px;
+    color: #dd2c00;
+}
+
+main div .data {
+    font-size: 3em;
+    color: white;
+}
+
+#link1 {
+    position: absolute;
+    bottom: 30px;
+    color: darkgray;
+    font-size: 1.1em;
+    left: 35px;
+}
+
+#link2 {
+    position: absolute;
+    bottom: 30px;
+    color: darkgray;
+    font-size: 1.1em;
+    right: 35px;
+    text-decoration: underline;
+}
+
+#link2:hover {
+    cursor: pointer;
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/89a1a46ea6.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../userHome.css">
+</head>
+<body>
+    <div class="navbar">
+        <button href="#" id="menu">
+        <i class="fas fa-bars"></i>
+    </button>
+        <button href="#" id="settings" class="has-dropdown">
+        <i class="fas fa-cog"></i>
+    </button>
+        <div id="logo">
+            <a href="../"><i>Easy</i><b>Temp</b></a>
+        </div>
+    </div>
+    <main>
+        <h2>Statistics</h2>
+        <div id="container">
+            <div>
+                <p>Users</p>
+                <p class="data" id="users"></p>
+            </div>
+            <div>
+                <p>Data Collected Last 24 Hours</p>
+            <p class="data" id="dataCollected"></p>
+            </div>
+            <div>
+                <p>Admins</p>
+                <p class="data" id="admins"></p>
+            </div>
+        </div>
+    </main>
+    <a href="/" id="link1">Home</a>
+    <a onclick="logout('auth')" id="link2">Log Out</a>
+</body>
+<script src="../userHome.js"></script>
+</html>

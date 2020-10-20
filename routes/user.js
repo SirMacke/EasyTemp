@@ -51,7 +51,7 @@ router.post('/signup', validate(validateUser), async(req, res) => {
     const token = user.generateAuthToken();
     res.cookie('auth', token);
 
-    res.redirect('/admin/home');
+    res.redirect('/user/home');
 });
 
 router.get('/me', auth, async(req, res) => {
