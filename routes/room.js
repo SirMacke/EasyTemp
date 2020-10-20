@@ -36,9 +36,12 @@ router.get('/:id', async(req, res) => {
     if (!weekDataPack) return res.status(404).send('The weekDataPack was not found.');
 
     function collectClientData(type) {
-        var result = [[], []];
+        var result = [
+            [],
+            []
+        ];
         if (type == 'hour') {
-            for (let i = 0; i < hourDataPack.length; i += Math.floor(hourDataPack.length / 100)) {
+            for (let i = 0; i < hourDataPack.length; i += Math.floor(hourDataPack.length / 50)) {
                 result[0].push(hourDataPack[i].temperature);
                 result[1].push(hourDataPack[i].humidity);
             }

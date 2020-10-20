@@ -33,7 +33,7 @@ html {
 
 @media screen and (min-width: 1600px) {
     html {
-        font-size: 16px;
+        font-size: 14px;
     }
 }
 
@@ -60,7 +60,7 @@ body {
     margin: 0 calc(48px * 0.1) 0 calc(48px * 0.1);
     border-radius: calc((48px * 0.8) / 2);
     line-height: calc(48px * 0.85);
-    font-size: 19.2px;
+    font-size: 15px;
     text-align: center;
     border: 0;
     padding: 0;
@@ -97,7 +97,7 @@ body {
 
 .navbar #logo a {
     text-decoration: none;
-    font-size: calc(48px * 0.5);
+    font-size: calc(48px * 0.4);
 }
 
 .navbar #logo a>i {
@@ -111,23 +111,25 @@ body {
 }
 
 #head {
-    height: 150px;
-    position: absolute;
+    height: 100px;
+    position: relative;
     width: 20%;
-    left: 40%;
-    top: 10vh;
+    top: 10px;
 }
+
 h1 {
     color: white;
     text-align: center;
     text-shadow: 3px 3px 4 gray;
 }
+
 #temp {
     text-align: center;
     text-decoration-style: solid;
     color: #FF2618;
     margin-top: 10px;
 }
+
 #humidity {
     text-align: center;
     color: #1892FF;
@@ -135,35 +137,40 @@ h1 {
 }
 
 #graf-container {
-    position: absolute;
-    left: 50%;
-    top: 52.5%;
-    transform: translate(-50%, -50%);
+    position: relative;
+    width: 50vw;
+    margin-top: 5px;
 }
+
 #graf {
     width: 50vw;
 }
+
 .graf {
     position: relative;
     box-sizing: border-box;
     margin: auto;
     border-radius: 5px;
 }
+
 .button {
-    background-color: #FF2618; 
-    color:  white;
+    background-color: #FF2618;
+    color: white;
     padding: 10px 25px;
     text-align: center;
     text-decoration: #FF2618;
     display: inline-block;
-    font-size: 16px;
-    width: 100%;  border: none;
+    font-size: 14px;
+    width: 100%;
+    border: none;
     border: black;
     margin-top: 25px;
 }
+
 .button:hover {
-    transform:scale(1.05);
+    transform: scale(1.05);
 }
+
 #table {
     position: relative;
     margin: auto;
@@ -194,40 +201,44 @@ h1 {
     border: 2px solid black;
     transition: all 200ms ease;
     z-index: 0;
-    font-size: 16px;
+    font-size: 8px;
     color: white;
 }
+
 #map-container>div .tooltipUP {
     visibility: hidden;
     position: absolute;
     color: white;
     line-height: 20px;
-    font-size: 15px;
+    font-size: 12px;
     top: 50px;
     width: 50px;
     right: 0px;
     background-color: black;
     border-radius: 10px;
 }
+
 #map-container>div .tooltipDown {
     visibility: hidden;
     position: absolute;
     color: white;
     line-height: 20px;
-    font-size: 15px;
+    font-size: 12px;
     bottom: 50px;
     width: 91.5px;
     right: 0px;
     background-color: black;
     border-radius: 10px;
 }
+
 #map-container>div:hover {
     cursor: pointer;
     transform: scale(1.07);
     filter: brightness(0.9);
     z-index: 1;
 }
-#map-container>div:hover>span{
+
+#map-container>div:hover>span {
     visibility: visible;
 }
 

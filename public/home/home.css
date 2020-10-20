@@ -43,9 +43,12 @@ body {
     align-items: center;
     justify-content: center;
     background-color: #1a1b1c;
+    overflow: hidden;
 }
 
 .navbar {
+    position: absolute;
+    top: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -86,7 +89,7 @@ body {
     order: 3;
 }
 
-.navbar button#settings {
+.navbar button#settings-btn {
     order: 1;
 }
 
@@ -103,17 +106,67 @@ body {
 .navbar #logo a>i {
     font-weight: 300;
     margin-right: calc(48px * 0.08);
-    color: #1892FF;
+    color: #3f51b5;
 }
 
 .navbar #logo a b {
-    color: #FF2618;
+    color: #f44336;
+}
+
+.navbar .dropdown .dropdown-content {
+    display: none;
+    flex-direction: column;
+    padding: 2rem;
+    position: absolute;
+    background-color: #333;
+    min-width: 160px;
+    width: 25vw;
+    z-index: 1;
+    border-radius: calc(48px * 0.25);
+    transform: translateX(2%);
+}
+
+.navbar .dropdown .dropdown-content input[type=range] {
+    background-color: #222;
+    appearance: none;
+    height: calc(48px * 0.4);
+    border-radius: calc((48px * 0.4) / 2);
+    margin: 1rem 0 1rem 0;
+}
+
+.navbar .dropdown .dropdown-content input[type=range]:hover {
+    cursor: pointer;
+}
+
+.navbar .dropdown .dropdown-content input[type=range]::-webkit-slider-thumb {
+    appearance: none;
+    height: calc(48px * 0.5);
+    width: calc(48px * 0.5);
+    border-radius: calc((48px * 0.5)/2);
+    background-color: #f00;
+}
+
+.navbar .dropdown .dropdown-content label {
+    font-size: 1.5rem;
+}
+
+.navbar .dropdown:focus-within .dropdown-item {
+    display: block;
+    pointer-events: auto;
+}
+
+.navbar .dropdown:hover .dropdown-content {
+    display: flex;
 }
 
 .container {
     margin-top: 2rem;
-    display: flex;
     flex-direction: column;
+    display: flex;
+}
+
+.epa-traktor {
+    display: flex;
 }
 
 .map {
@@ -167,27 +220,11 @@ body {
 }
 
 .room>div>h2 {
-    font-size: 1.55rem;
-    margin-bottom: 2px;
-}
-
-.room>div>.temp {
-    margin-bottom: 2px;
-}
-
-.room>div>.temp>span {
-    margin-left: 3px;
-}
-.room>div>.humid>span {
-    margin-left: 3px;
+    font-size: 1.5rem;
 }
 
 .room>div>.temp>span::after {
-    content: " °C";
-}
-
-.room>div>.humid>span::after {
-    content: " %";
+    content: "°C";
 }
 
 .room:hover>div>div {
@@ -243,6 +280,61 @@ body {
     grid-row: 3/3;
 }
 
+.thermometer-container {
+    position: relative;
+    display: flex;
+    left: 2rem;
+    margin-top: 25vh;
+}
+
+.thermometer {
+    width: 3rem;
+    height: 40vh;
+    border-radius: 1.5rem;
+    border: 3px solid #2a2b2c;
+    overflow: hidden;
+}
+
+.thermometer:hover #thermo-marker,
+.thermometer:hover+#temperature-text {
+    visibility: visible;
+}
+
+.thermometer:hover {
+    cursor: pointer;
+}
+
+#thermo-marker {
+    visibility: hidden;
+    transition: opacity 100ms;
+    position: relative;
+    background-color: white;
+    width: 100%;
+    height: 2px;
+}
+
+#temperature-text {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    visibility: hidden;
+    transition: opacity 100ms;
+    position: relative;
+    left: 0.5rem;
+    color: white;
+}
+
+#temperature-text.celsius::after {
+    content: "°C";
+}
+
+#temperature-text.humidity::after {
+    content: " %";
+}
+
 .temp-humid-buttons {
     margin-top: 5px;
     display: flex;
@@ -271,7 +363,7 @@ body {
 }
 
 .temp-humid-buttons>#temp-button:hover {
-    background-color: #FF2618;
+    background-color: #dd2c00;
 }
 
 .temp-humid-buttons>#humid-button:hover {
