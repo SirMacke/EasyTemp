@@ -118,7 +118,7 @@ function x_axies(timespan, btn) {
         }
         for (i = 0; i <= 6; i++) {
             var hour = new Date
-            hour.setUTCHours(time.getHours() - i * 4);
+            hour.setUTCHours(time.getHours() + i * 4);
             if (CheckLength(hour.getHours(), 2) == 1) {
                 ctx.fillText("0" + hour.getUTCHours() + ":" + hourMinutes, width / 13 + i * 45* change, height - 2);
             } else {
@@ -128,7 +128,8 @@ function x_axies(timespan, btn) {
     } else if (btn == "hour") {
         for (i = 0; i <= 6; i++) {
             var minutes = new Date;
-            minutes.setUTCMinutes(time.getMinutes() - i * 10);
+            minutes.setUTCHours(time.getUTCHours() - 1);
+            minutes.setUTCMinutes(time.getUTCMinutes() + i * 10);
             if (CheckLength(minutes.getMinutes(), 0) == 1) {
                 ctx.fillText(minutes.getHours() + ":0" + minutes.getMinutes(), width / 13 + i * 45* change, height - 2);
             } else {
@@ -138,17 +139,17 @@ function x_axies(timespan, btn) {
     } else {
         for (i = 0; i <= 6; i++) {
             var month = time.getMonth() + 1;
-            ctx.fillText(time.getDate() - i + "/" + month, width / 13 + i * 45 *change, height - 2);
+            ctx.fillText(time.getDate() - 6 + i + "/" + month, width / 13 + i * 45 *change, height - 2);
         }
     }
 }
 
 function CheckLength(firstNumber, v) {
-    firstNumber = firstNumber - v;
+    firstNumber = firstNumber - v; // v är bara för att få numret rätt när man stopar in timm-värden
     firstNumber = firstNumber.toString();
     firstNumber = firstNumber.split("");
     return firstNumber.length;
-    //skickar längden 
+    //skickar längden av numret
 }
 
 function y_axies(max, color, diff, unit, type) {
@@ -156,16 +157,20 @@ function y_axies(max, color, diff, unit, type) {
     decimals = 10;
     if (diff < 1 && diff > 0) {
         decimals = 100;
+        // om differansen är liten så ska den visa fler decimaler
     }
     if (diff) {
         for (i = 0; i <= 4; i++) {
             ctx.fillText(Math.round((max - i * diff / 4) * decimals) / decimals + unit, width * type / 344, height / 5 + i * height / 6.8);
+            // skriver ut skalan
         }
         ctx.fillText(Math.round((max + diff / 4) * decimals) / decimals + unit, width * type / 344, height / 16.5);
         ctx.fillText(Math.round((max - diff - diff / 4) * decimals) / decimals + unit, width * type / 344, height / 16.5 + 6 * height / 6.8);
+        // värdet som får grafen en marginal
     } else {
         for (i = 0; i <= 6; i++) {
             ctx.fillText(Math.round((max + 0.3 - i * 0.1) * decimals) / decimals + unit, width * type / 344, height / 16.5 + i * height / 6.8);
+            // om differansen är 0 så vill jag också att den ska skriva ut en skala som stämmer
         }
     }
 }
