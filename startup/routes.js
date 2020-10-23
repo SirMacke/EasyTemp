@@ -9,6 +9,7 @@ const adminHome = require('../routes/admin/home');
 const userHome = require('../routes/user/home');
 const error = require('../middleware/error');
 
+//startar vissa funktioner
 module.exports = function(app) {
     app.use(express.json());
     app.use(bodyParser.urlencoded({
@@ -22,6 +23,7 @@ module.exports = function(app) {
     app.use(express.static(path.join(__dirname, '../') + 'private/admin/home'));
     app.use(express.static(path.join(__dirname, '../') + 'private/user/home'));
     app.use(cookieParser());
+    // redirectar en request från clienten till olika filer
     app.use('/', home);
     app.use('/room', room);
     app.use('/user', user);

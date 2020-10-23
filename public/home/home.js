@@ -269,7 +269,7 @@ range.on('change', () => {
 });
 
 window.onload = () => {
-    if (typeof(Storage) !== "undefined") {
+    if (localStorage.getItem("min-temperature")) {
         MIN_TEMP = +localStorage.getItem("min-temperature") || 30;
         MAX_TEMP = +localStorage.getItem("max-temperature") || 10;
         TEMP_BIAS = +localStorage.getItem("temperature-bias") || -2;
@@ -277,13 +277,14 @@ window.onload = () => {
         MAX_HUMID = +localStorage.getItem("max-humidity") || 1;
         HUMID_BIAS = +localStorage.getItem("humidity-bias") || -8;
     } else {
-        MIN_TEMP = 30;
-        MAX_TEMP = 10;
-        TEMP_BIAS = -2;
-        MIN_HUMID = 50;
-        MAX_HUMID = 1;
-        HUMID_BIAS = -8;
+        localStorage.setItem("min-temperature", 30)
+        localStorage.setItem("max-temperature", 10)
+        localStorage.setItem("temperature-bias", -2)
+        localStorage.setItem("min-humidity", 50)
+        localStorage.setItem("max-humidity", 1)
+        localStorage.setItem("humidity-bias", -8)
     }
+
     view = "temperature"; // Default view
     placeholderText.html('Temperature');
     colorRooms();
