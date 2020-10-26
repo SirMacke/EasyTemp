@@ -11,10 +11,12 @@ const error = require('../middleware/error');
 
 //startar vissa funktioner
 module.exports = function(app) {
+    // gör så att webbsidan kan ta emot JSON filer med data
     app.use(express.json());
     app.use(bodyParser.urlencoded({
         extended: true
     }));
+    // Hanterar cookies
     app.use(cookieParser());
     app.use(express.static(path.join(__dirname, '../') + 'public/home'));
     app.use(express.static(path.join(__dirname, '../') + 'public/room'));

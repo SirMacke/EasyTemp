@@ -12,6 +12,7 @@
 </head>
 
 <body>
+    <!-- Headern av webbsidan -->
     <div class="navbar">
         <button href="#" id="menu">
             <i class="fas fa-bars"></i>
@@ -23,16 +24,19 @@
             <a href="../"><i>Easy</i><b>Temp</b></a>
         </div>
     </div>
+    <!-- Namnet på rummet, temperaturen och luftfuktigheten -->
     <div id="head">
         <h1></h1>
         <h2 id="temp"></h2>
         <h2 id="humidity"></h2>
     </div>
+    <!-- Grafen -->
     <div id="graf-container">
         <div class="graf">
             <canvas id="graf"></canvas>
         </div>
         <div>
+            <!-- Knappar för att ändra graf -->
             <table id="table">
                 <td>
                     <button type="button" class="button" onclick="graphUpdate(hour, 'hour')">Timme</button>
@@ -46,6 +50,7 @@
             </table>
         </div>
     </div>
+    <!-- Karta nere i högra hörnet för att lätt byta rum -->
     <div id="map-container">
         <div id="room1" onclick="miniMap('1')">Terrariet</div>
         <div id="room3" onclick="miniMap('2')">Labbet</div>

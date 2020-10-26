@@ -2,6 +2,7 @@ const Joi = require('joi');
 Joi.objectId = require('joi-objectid')(Joi);
 const mongoose = require('mongoose');
 
+// Model av DataPack med olika värden och vad dem accepterar
 const DataPack = mongoose.model('DataPack', new mongoose.Schema({
     arduinoId: {
         type: Number,

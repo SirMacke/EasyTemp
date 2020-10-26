@@ -7,6 +7,7 @@ document.getElementById("graf").setAttribute('height', height);
 var canvas = document.getElementById("graf");
 var ctx = canvas.getContext("2d");
 
+// Läser av data från cookies
 var arduinoId = decodeURIComponent(document.cookie).split('; ').find(row => row.startsWith('arduinoId')).split('=')[1];
 arduinoId = JSON.parse(arduinoId);
 
@@ -32,6 +33,7 @@ const hour = {
     humidity: []
 }
 
+// fyller variablerna ovan med korrekt data
 dataFiller();
 
 function dataFiller() {
@@ -45,30 +47,36 @@ function dataFiller() {
     week.humidity = weekDataPack[1];
 }
 
+// Ser till att det står rätt rum namn
 var rum = ['Terrariet', 'Labbet', 'Hallen', 'Vardagsrummet', 'Klassrummet'];
 document.querySelector("h1").innerHTML = rum[arduinoId - 1];
 
+// Ser till att temperaturen och luftfuktigheten skrivs ut
 document.getElementById("temp").innerHTML = hourDataPack[0][hourDataPack[0].length - 1] + " C°";
 document.getElementById("humidity").innerHTML = hourDataPack[1][hourDataPack[1].length - 1] + " %";
 
-graphUpdate(day, "day");
-
+// Funktion som frågar API efter live data
 const interval = setInterval(function() {
     var url = window.location.href + "/live";
 
+    // Callback funktion
     function updateRoomLiveData(data) {
+        // Samlar ihop datan
         var newData = JSON.parse(data);
 
+        // Skriver in det i HTML filen
         document.getElementById("temp").innerHTML = newData.temperature + " C°";
         document.getElementById("humidity").innerHTML = newData.humidity + " %";
     }
 
+    // Skicka data request
     httpGetAsync(url, updateRoomLiveData);
 
     function httpGetAsync(theUrl, callback) {
         var xmlHttp = new XMLHttpRequest();
 
         xmlHttp.onreadystatechange = function() {
+            // Om den får tillbaka data kör callback funktion
             if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
                 callback(xmlHttp.responseText);
         }
@@ -77,6 +85,9 @@ const interval = setInterval(function() {
         xmlHttp.send(null);
     }
 }, 1000);
+
+// Startar igång grafen
+graphUpdate(day, "day");
 
 function graphUpdate(timespan, btn) {
     ctx.fillStyle = "#1a1b1c";
