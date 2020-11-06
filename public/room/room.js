@@ -10,7 +10,7 @@ const change = 2.5;
    document.getElementById("graf").setAttribute('width', width); 
    document.getElementById("graf").setAttribute('height', height);
 
-//  graph-objektet får en referens till canvas tagen
+// graph-objektet får en referens till canvas tagen
    var canvas = document.getElementById("graf");
    var graph = canvas.getContext("2d");
 
