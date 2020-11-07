@@ -1,6 +1,6 @@
 // gör att man kan skala
 const change = 2.5;
-// number som används på många ställen
+// konstanter som används på många ställen i grafen
    const width = 344 * change;
    const height = width * 85 / 172;
    const marginTop = height / 34;
